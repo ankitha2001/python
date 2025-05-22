@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ankitha2001/python.git']])
+            }
+        }
+        stage('build') {
+            steps {
+                bat 'python python_git_prj/python1.py'
+            }
+        }    
+        stage('test') {
+            steps {
+                bat 'python -h pytest '
+            }
+        }
+    }
+}
